@@ -11,7 +11,21 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
-	/**
+
+
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->package('knight-swarm/laravel-saml');
+    }
+
+
+
+    /**
 	 * Register the service provider.
 	 *
 	 * @return void
