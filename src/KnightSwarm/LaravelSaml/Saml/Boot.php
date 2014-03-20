@@ -1,5 +1,6 @@
 <?php namespace KnightSwarm\LaravelSaml\Saml;
 
+use \Config;
 
 class Boot {
 
