@@ -1,0 +1,22 @@
+{
+    "name": "knight-swarm/laravel-saml",
+    "description": "saml auth provider for laravel 4.*",
+    "keywords": ["saml", "laravel", "laravel-saml", "sso"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Knight Swarm",
+            "email": "opensource@knightswarm.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "KnightSwarm\\LaravelSaml": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
