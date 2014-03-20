@@ -11,8 +11,8 @@ class Boot {
 
     public function __construct()
     {
-        $this->path = Config::get('package::saml.sp_path', public_path()."/sp/www");
-        $this->sp   = Config::get('package::saml.sp_name', 'default-sp');
+        $this->path = Config::get('laravel-saml::saml.sp_path', public_path()."/sp/www");
+        $this->sp   = Config::get('laravel-saml::saml.sp_name', 'default-sp');
 
         require_once($this->path.'/lib/_autoload.php');
 
