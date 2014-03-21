@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class SimpleSaml extends Facade {
+class Saml extends Facade {
 
     protected static function getFacadeAccessor() { return 'Saml'; }
 

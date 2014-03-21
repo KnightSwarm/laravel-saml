@@ -24,6 +24,8 @@ return array(
      */
     'default_sp' => 'default_sp',
 
+    'logout_target' => 'http://saml.dev',
+
 
 
 );
