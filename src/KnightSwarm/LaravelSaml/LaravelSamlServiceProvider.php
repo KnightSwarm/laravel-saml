@@ -32,8 +32,14 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
-	}
+        $this->app->bind('Saml', function()
+        {
+
+            return new Saml\SamlBoot();
+
+        });
+    }
+
 
 	/**
 	 * Get the services provided by the provider.
