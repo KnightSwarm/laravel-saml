@@ -39,6 +39,15 @@ and the
  
      'sp_path' => app_path()."/../../sp",
      
- and your default SP id
+ Your default SP id
  
      'sp_name' => 'saml.dev',
+     
+ And afther logout, where users, should go,
+ 
+     'logout_target' => 'http://saml.dev'
+     
+This Package will trigger `/login` and `/logout`
+
+##@TODO
+We need to implement custom attributes bindings on model and database, for PoC it gets only `uid` and `name` attribuites and will fail it they does not exists
