@@ -34,9 +34,8 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	{
         $this->app->bind('Saml', function()
         {
-
-            return new Saml\SamlBoot();
-
+            $samlboot = new Saml\SamlBoot();
+            return $samlboot->getSimpleSaml();
         });
     }
 

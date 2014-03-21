@@ -7,11 +7,17 @@ class SamlBoot {
 
     protected $path;
     protected $sp;
-    public    $saml;
+    protected $saml;
 
     public function __construct()
     {
         $this->saml = $this->setupSimpleSaml();
+
+    }
+
+    public function getSimpleSaml()
+    {
+        return $this->saml;
     }
 
 
