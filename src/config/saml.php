@@ -16,16 +16,15 @@ return array(
     /*
      * The path to the working phpsimplesaml install
      */
-    'ps_path' => public_path()."/serviceproviderpath",
-
+    'sp_path' => "/var/simplesamlphp",
 
     /*
-     * Authenticate as...
+     * The service provider name
      */
-    'default_sp' => 'default_sp',
+    'sp_name' => "default_sp",
 
+    /*
+     * The redirect destination after logging out
+     */
     'logout_target' => 'http://saml.dev',
-
-
-
 );
