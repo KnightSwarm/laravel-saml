@@ -4,15 +4,14 @@
 use \Saml;
 use \User;
 use \Auth;
+use \Cookie;
 
 class Account {
 
-
-    public function userExists($id)
+    public function UIDExists($uid)
     {
-        $user = User::find($id);
-
-        return $user ? true : false;
+        $user = User::where("uid", "=", $uid)->count();
+        return $user === 0 ? false : true;
     }
 
     public function samlLogged()
@@ -25,19 +24,25 @@ class Account {
         Saml::requireAuth();
     }
 
-    public function laravelLogin($id)
+    public function laravelLogin($uid)
     {
-        if ($this->userExists($id)) {
-            Auth::login(User::find($id));
-        } else {
-
+        if ($this->UIDExists($uid)) {
+            $userid = (int)User::where("uid", "=", $uid)->take(1)->get()[0]->id;
+            Auth::login(User::find($userid));
         }
     }
 
     public function getSamlUid()
     {
         $data = Saml::getAttributes();
-        return (int) $data['uid'][0];
+        //return (int) $data['uid'][0];
+        return $data['uid'][0]; //for non-numeric uids
+    }
+
+    public function getSamlName()
+    {
+        $data = Saml::getAttributes();
+        return $data['cn'][0];
     }
 
     public function laravelLogged()
@@ -49,8 +54,8 @@ class Account {
     {
         $data = Saml::getAttributes();
         $user = new User();
-        $user->id = (int) $data['uid'][0];
-        $user->name = $data['name'][0];
+        $user->uid = $data['uid'][0];
+        $user->name = $data['cn'][0];
         $user->save();
         $this->laravelLogin($user->id);
     }
@@ -58,6 +63,7 @@ class Account {
     public function logout()
     {
         Auth::logout();
-        Saml::logout(\Config::get('laravel-saml::saml.logout_target', 'http://'.$_SERVER['SERVER_NAME']));
+        $auth_cookie = Cookie::forget('SimpleSAMLAuthToken');
+        return $auth_cookie;
     }
-} 
+}
