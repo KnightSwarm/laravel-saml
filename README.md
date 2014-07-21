@@ -6,7 +6,7 @@ Open Source SAML Auth Support for Laravel using simplesamlphp.
 
 #### Requeriments
 - Laravel install, of course
-- Working simplesamlphp instance acting like an Service Provider
+- Working SimpleSAMLphp instance acting like an Service Provider
 
 
 #### Instalation

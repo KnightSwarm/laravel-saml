@@ -1,5 +1,5 @@
 {
-    "name": "knight-swarm/laravel-saml",
+    "name": "tmountjr/laravel-saml",
     "description": "saml auth provider for laravel 4.*",
     "keywords": ["saml", "laravel", "laravel-saml", "sso"],
     "license": "MIT",
@@ -7,6 +7,14 @@
         {
             "name": "KnightSwarm Handelsbolag",
             "email": "code@knightswarm.com"
+        },
+        {
+            "name": "Tom Mount",
+            "email": "tmountjr@ebay.com"
+        },
+        {
+            "name": "Phil Preston",
+            "email": "phpreston@ebay.com"
         }
     ],
     "require": {
