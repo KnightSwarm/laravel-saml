@@ -24,7 +24,7 @@ service provider on the `'providers'` array (`app/config/app.php`)
 
 and the 
 
-    'SimpleSaml'      => 'KnightSwarm\LaravelSaml\Facades\SimpleSaml'
+    'Saml'      => 'KnightSwarm\LaravelSaml\Facades\Saml'
 
  facade on the `'aliases'` array.
  
