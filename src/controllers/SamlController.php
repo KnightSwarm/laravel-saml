@@ -37,7 +37,7 @@ class SamlController extends BaseController {
                 $this->account->createUser();
             } else {
                 if (!$this->account->laravelLogged()) {
-                    $this->account->laravelLogin($Email);
+                    $this->account->laravelLogin($email);
                 }
             }
         }
