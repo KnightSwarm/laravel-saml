@@ -8,9 +8,9 @@ use \Cookie;
 
 class Account {
 
-    public function UIDExists($uid)
+    public function EmailExists($email)
     {
-        $user = User::where("uid", "=", $uid)->count();
+        $user = User::where("email", "=", $email)->count();
         return $user === 0 ? false : true;
     }
 
@@ -24,25 +24,24 @@ class Account {
         Saml::requireAuth();
     }
 
-    public function laravelLogin($uid)
+    public function laravelLogin($email)
     {
-        if ($this->UIDExists($uid)) {
-            $userid = (int)User::where("uid", "=", $uid)->take(1)->get()[0]->id;
+        if ($this->EmailExists($email)) {
+            $userid = (int)User::where("email", "=", $email)->take(1)->get()[0]->id;
             Auth::login(User::find($userid));
         }
     }
 
-    public function getSamlUid()
+    public function getSamlEmail()
     {
         $data = Saml::getAttributes();
-        //return (int) $data['uid'][0];
-        return $data['uid'][0]; //for non-numeric uids
+        return $data['email'][0]; //for non-numeric uids
     }
 
     public function getSamlName()
     {
         $data = Saml::getAttributes();
-        return $data['cn'][0];
+        return $data['SAML_FIRST_NAME'][0] . ' ' . $data['SAML_LAST_NAME'][0];
     }
 
     public function laravelLogged()
@@ -54,8 +53,7 @@ class Account {
     {
         $data = Saml::getAttributes();
         $user = new User();
-        $user->uid = $data['uid'][0];
-        $user->name = $data['cn'][0];
+        $user->email = $this->getSamlEmail();
         $user->save();
         $this->laravelLogin($user->id);
     }
