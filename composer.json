@@ -7,6 +7,14 @@
         {
             "name": "KnightSwarm Handelsbolag",
             "email": "code@knightswarm.com"
+        },
+        {
+            "name": "Tom Mount",
+            "email": "tmountjr@ebay.com"
+        },
+        {
+            "name": "Phil Preston",
+            "email": "phpreston@ebay.com"
         }
     ],
     "require": {
