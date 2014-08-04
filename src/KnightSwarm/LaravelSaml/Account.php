@@ -55,7 +55,7 @@ class Account {
         $user = new User();
         $user->email = $this->getSamlEmail();
         $user->save();
-        $this->laravelLogin($user->id);
+        $this->laravelLogin($user->email);
     }
 
     public function logout()
