@@ -17,8 +17,8 @@ class Account {
         return Config::get('laravel-saml::saml.saml_id_property', 'email');
     }
     /**
-     * Check if the id exsists in the specified user property.
-     * If no property is defiend default to 'email'.
+     * Check if the id exists in the specified user property.
+     * If no property is defined default to 'email'.
      */
     public function IdExists($id)
     {
