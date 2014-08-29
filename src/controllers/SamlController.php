@@ -32,12 +32,17 @@ class SamlController extends BaseController {
         }
 
         if ($this->account->samlLogged()) {
-            $email = $this->account->getSamlEmail();
-            if (!$this->account->EmailExists($email)) {
-                $this->account->createUser();
+            $id = $this->account->getSamlUniqueIdentifier();
+            if (!$this->account->IdExists($id)) {
+                if (Config::get('laravel-saml::saml.can_create', true)) {
+                    $this->account->createUser();
+                }
+                else {
+                    return Response::make(Config::get('laravel-saml::saml.can_create_error'),400);
+                }
             } else {
                 if (!$this->account->laravelLogged()) {
-                    $this->account->laravelLogin($email);
+                    $this->account->laravelLogin($id);
                 }
             }
         }
