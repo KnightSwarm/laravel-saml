@@ -34,7 +34,12 @@ class SamlController extends BaseController {
         if ($this->account->samlLogged()) {
             $id = $this->account->getSamlUniqueIdentifier();
             if (!$this->account->IdExists($id)) {
-                $this->account->createUser();
+                if (Config::get('laravel-saml::saml.can_create', true)) {
+                    $this->account->createUser();
+                }
+                else {
+                    return Response::make(Config::get('laravel-saml::saml.can_create_error'),400);
+                }
             } else {
                 if (!$this->account->laravelLogged()) {
                     $this->account->laravelLogin($id);
