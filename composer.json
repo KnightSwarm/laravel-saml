@@ -15,6 +15,10 @@
         {
             "name": "Phil Preston",
             "email": "phpreston@ebay.com"
+        },
+        {
+            "name": "Jeremy French",
+            "email": "jeremy@jeremyfrench.co.uk"
         }
     ],
     "require": {
