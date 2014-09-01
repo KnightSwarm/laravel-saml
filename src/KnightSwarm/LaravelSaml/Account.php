@@ -4,15 +4,27 @@
 use \Saml;
 use \User;
 use \Auth;
+use \Cookie;
+use \Config;
 
 class Account {
 
+    protected function getUserIdProperty() {
+        return Config::get('laravel-saml::saml.internal_id_property', 'email');
+    }
 
-    public function userExists($id)
+    protected function getSamlIdProperty() {
+        return Config::get('laravel-saml::saml.saml_id_property', 'email');
+    }
+    /**
+     * Check if the id exists in the specified user property.
+     * If no property is defined default to 'email'.
+     */
+    public function IdExists($id)
     {
-        $user = User::find($id);
-
-        return $user ? true : false;
+        $property = $this->getUserIdProperty();
+        $user = User::where($property, "=", $id)->count();
+        return $user === 0 ? false : true;
     }
 
     public function samlLogged()
@@ -27,17 +39,27 @@ class Account {
 
     public function laravelLogin($id)
     {
-        if ($this->userExists($id)) {
-            Auth::login(User::find($id));
-        } else {
-
+        if ($this->IdExists($id)) {
+            $property = $this->getUserIdProperty();
+            $userid = (int)User::where($property, "=", $id)->take(1)->get()[0]->id;
+            Auth::login(User::find($userid));
         }
     }
 
-    public function getSamlUid()
+    public function getSamlAttribute($attribute)
     {
         $data = Saml::getAttributes();
-        return (int) $data['uid'][0];
+        return $data[$attribute][0];
+    }
+
+    public function getSamlUniqueIdentifier()
+    {
+        return $this->getSamlAttribute($this->getSamlIdProperty()); 
+    }
+
+    public function getSamlName()
+    {
+        return $data['SAML_FIRST_NAME'][0] . ' ' . $data['SAML_LAST_NAME'][0];
     }
 
     public function laravelLogged()
@@ -45,19 +67,32 @@ class Account {
         return Auth::check();
     }
 
+    /**
+     * If mapping between saml attributes and object attributes are defined
+     * then fill user object with mapped values.
+     */
+    protected function fillUserDetails($user)
+    {
+         $mappings = Config::get('laravel-saml::saml.object_mappings',[]);
+         foreach($mappings as $key => $mapping)
+         {
+             $user->{$key} = $this->getSamlAttribute($mapping);
+         }
+    }
+
     public function createUser()
     {
-        $data = Saml::getAttributes();
         $user = new User();
-        $user->id = (int) $data['uid'][0];
-        $user->name = $data['name'][0];
+        $user->{$this->getUserIdProperty()} = $this->getSamlUniqueIdentifier();
+        $this->fillUserDetails($user);
         $user->save();
-        $this->laravelLogin($user->id);
+        $this->laravelLogin($user->{$this->getUserIdProperty()});
     }
 
     public function logout()
     {
         Auth::logout();
-        Saml::logout(\Config::get('laravel-saml::saml.logout_target', 'http://'.$_SERVER['SERVER_NAME']));
+        $auth_cookie = Cookie::forget('SimpleSAMLAuthToken');
+        return $auth_cookie;
     }
-} 
+}

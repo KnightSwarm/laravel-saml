@@ -23,9 +23,6 @@ class LaravelSamlServiceProvider extends ServiceProvider {
         $this->package('knight-swarm/laravel-saml');
 
         include __DIR__.'/../../routes.php';
-
-
-
     }
 
 
