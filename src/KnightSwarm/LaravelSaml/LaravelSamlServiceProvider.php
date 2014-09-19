@@ -34,9 +34,14 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+        $this->app->bind('SamlSpReslover', function() {
+          return $this->app->config->get('laravel-saml::saml.sp_name', 'default-sp');
+        });
+
         $this->app->bind('Saml', function()
         {
-            $samlboot = new Saml\SamlBoot();
+            $sp_resolver = $this->app->make('SamlSpReslover');
+            $samlboot = new Saml\SamlBoot($sp_resolver);
             return $samlboot->getSimpleSaml();
         });
     }
