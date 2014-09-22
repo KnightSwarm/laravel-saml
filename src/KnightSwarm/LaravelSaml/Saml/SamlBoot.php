@@ -9,10 +9,10 @@ class SamlBoot {
     protected $sp;
     protected $saml;
 
-    public function __construct()
+    public function __construct($samlSpResolver)
     {
+        $this->sp_resolver = $samlSpResolver;
         $this->saml = $this->setupSimpleSaml();
-
     }
 
     public function getSimpleSaml()
@@ -24,7 +24,7 @@ class SamlBoot {
     protected function setupSimpleSaml()
     {
         $this->path = Config::get('laravel-saml::saml.sp_path', public_path()."/sp/www");
-        $this->sp   = Config::get('laravel-saml::saml.sp_name', 'default-sp');
+        $this->sp   = $this->sp_resolver;
 
         require_once($this->path.'/lib/_autoload.php');
 
