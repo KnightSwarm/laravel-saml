@@ -21,7 +21,6 @@ class LaravelSamlServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->package('knight-swarm/laravel-saml');
-
         include __DIR__.'/../../routes.php';
     }
 
@@ -35,7 +34,7 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('SamlSpResolver', function() {
-          return new SamlSpResolver();
+            return new SamlSpResolver();
         });
 
         $this->app->bind('Saml', function()
