@@ -33,8 +33,8 @@ class LaravelSamlServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app->bind('SamlSpResolver', function() {
-            return new SamlSpResolver();
+        $this->app->bind('SamlSpResolver', function($app) {
+            return new SamlSpResolver($app);
         });
 
         $this->app->bind('Saml', function()
