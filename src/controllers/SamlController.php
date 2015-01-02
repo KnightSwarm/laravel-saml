@@ -4,6 +4,7 @@ use KnightSwarm\LaravelSaml\Account;
 use \Saml;
 use \Auth;
 use \Session;
+use \Input;
 
 class SamlController extends BaseController {
 
@@ -25,8 +26,15 @@ class SamlController extends BaseController {
 
 	public function login()
 	{
+        if (Input::has('url')) {
+            // only allow local urls as redirect destinations
+            $url = Input::get('url');
+            if (!preg_match("~^(//|[^/]+:)~", $url)) {
+                Session::flash('url.intended', $url);
+            }
+        }
 
-    	if (!$this->account->samlLogged()) {
+        if (!$this->account->samlLogged()) {
             Auth::logout();
             $this->account->samlLogin();
         }
