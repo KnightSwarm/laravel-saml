@@ -109,7 +109,7 @@ class Account {
     {
         Auth::logout();
 
-        $auth_cookie = Cookie::forget('SimpleSAMLAuthToken');
+        $auth_cookie = Cookie::forget('BuildSpaceAuthToken');
 
         return $auth_cookie;
     }
