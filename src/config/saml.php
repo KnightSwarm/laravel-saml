@@ -12,6 +12,10 @@ return array(
     |
     */
 
+    /*
+     * User's Model Class
+     */
+    'sp_user_model_class' => '\User',
 
     /*
      * The path to the working phpsimplesaml install
