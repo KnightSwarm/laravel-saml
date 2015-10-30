@@ -1,10 +1,6 @@
 <?php
 
 use KnightSwarm\LaravelSaml\Account;
-use \Saml;
-use \Auth;
-use \Session;
-use \Input;
 
 class SamlController extends BaseController {
 
