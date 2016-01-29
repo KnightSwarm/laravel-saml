@@ -29,6 +29,14 @@ return array(
     'logout_target' => 'http://saml.dev',
 
     /*
+     * The route slugs to use for the login and logout controller methods
+     */
+    'routes' => array(
+        'login' => 'login',
+        'logout' => 'logout',
+    ),
+
+    /*
      * Internal id property, defaults to email.
      * The property to identify users by in the system.
      * 'internal_id_property' => 'email',
