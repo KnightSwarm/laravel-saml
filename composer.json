@@ -1,5 +1,5 @@
 {
-    "name": "pfalsoncup/laravel-saml",
+    "name": "knight-swarm/laravel-saml",
     "description": "saml auth provider for laravel 5.*",
     "keywords": ["saml", "laravel", "laravel-saml", "sso"],
     "license": "MIT",
